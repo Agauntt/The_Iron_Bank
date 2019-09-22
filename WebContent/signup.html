@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Livvic|Manjari|Ubuntu|Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <title>Sign-up Page</title>
+  </head>
+  <body>
+    <nav class="navbar justify-content-between">
+      <a id="home-title" class="navbar-brand title">The Iron Bank</a>
+      <form class="form-inline">
+        <button class="btn btn-outline-dark nav-button" type="submit">Button 1</button>
+        <a href="index.html" class="btn btn-outline-dark nav-button">
+          Home
+        </a>
+      </form>
+    </nav>
+    <div class="container text-center">
+        <div class="personalLog col-md-12">
+          <form id="signup-form">
+            <div class="row"> 
+              <div class="form-group col-md-5"> <!-- Full Name -->
+                <label for="full_name_id" class="control-label ">Full Name</label>
+                <input required type="text" class="form-control" id="full_name_id" name="full_name" placeholder="John Doe">
+              </div>
+            <div class="col-md-2"></div>
+            <div class="form-group col-md-5"> <!-- Contact-->
+              <label for="zip_id" class="control-label">Phone Number</label>
+              <input required type="tel" class="form-control" id="contact_id" name="contact" placeholder="###-###-####">
+            </div>	
+            <!-- <div class="col-md-2"></div>	 -->
+          </div>
+          <div class="row">
+          <div class="form-group col-md-5"> <!-- Email-->
+            <label for="email_id" class="control-label">Email address </label>
+            <input required type="email" class="form-control" id="email_id" name="email" placeholder="youremail@email.com">
+          </div>
+          <div class="col-md-2"></div>
+          <div class="form-group col-md-5"> <!-- DoB-->
+            <label for="dob_id" class="control-label">Date of Birth</label>
+            <input required type="date" class="form-control" id="dob" name="dob">
+          </div>
+          </div>
+            <div class="form-group"> <!-- Street 1 -->
+              <label for="street1_id" class="control-label">Street Address</label>
+              <input required type="text" class="form-control" id="address" name="address" placeholder="Street address">
+            </div>					
+          
+            <div class="form-group"> <!-- City-->
+              <label for="city_id" class="control-label">City</label>
+              <input required type="text" class="form-control" id="city_id" name="city" placeholder="Smallville">
+            </div>									
+                        
+            <div class="form-group text-center"> <!-- State Button -->
+              <label for="state_id" class="control-label">State</label>
+              <select required class="form-control text-center" id="state_id">
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>					
+            </div>
+            <div class="form-group"> <!-- Zip Code-->
+              <label for="zip_id" class="control-label">ZIP Code</label>
+              <input  required type="number" class="form-control" id="zip_id" name="zip" placeholder="#####">
+            </div>	
+            <div class="form-group"> <!-- SSN-->
+              <label for="ssn_id" class="control-label">Social Security Number</label>
+              <input required type="text" class="form-control" id="ssn_id" name="ssn" placeholder="###-##-####">
+            </div>
+            <button id="continue_submit" class="btn btn-dark" data-toggle="modal" data-target="#set-security">Continue</button>			
+          </form>
+        </div> 
+      </div>
+
+
+
+    <!----------------Security Modal-------------------->
+    <div
+    class="modal fade"
+    id="set-security"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Set Security Measures</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+              <label for="reset-password">Enter a Password (Password must be between 6 - 12 characters, and must contain at least one number, one lowercase letter and one Uppercase letter</label>
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                id="reset-password"
+                aria-describedby="emailHelp"
+                placeholder="New Password"
+              />
+            </div>
+            <div class="form-group">
+              <p>Retype password to confirm</p>
+              <input type="text" class="form-control" id="passConfirm" placeholder="Confirm new password"/>
+            </div>
+            <div class="form-group">
+              <p>Enter a four digit PIN</p>
+              <input type="text" class="form-control" id="pin" placeholder="PIN"/>
+            </div>
+            <div class="form-group">
+              <p>Select a security question and enter your answer</p> 
+              <select required class="form-control text-center" id="state_id">
+                <option value="SQ1">In what city were you born?</option>
+                <option value="SQ2">What is your mother's maiden name?</option>
+                <option value="SQ3">What is your favorite sport?</option>
+              <input type="text" class="form-control" id="sq-answer" placeholder="Answer"/>
+            </div>
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Reset Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------------------------->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js
+    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js
+    "></script>
+    <script src="scripts/validation.js"></script>
+    <script src="scripts/logic.js"></script>
+  </body>
+</html>

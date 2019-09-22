@@ -1,0 +1,188 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />										
+    <link
+      href="https://fonts.googleapis.com/css?family=Livvic|Ubuntu|Spectral|Manjari|Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+
+    <title>Iron Bank Home</title>
+  </head>
+  <body>
+    <nav class="navbar justify-content-between">
+      <a id="home-title" class="navbar-brand title">The Iron Bank</a>
+      <form class="form-inline">
+        <button class="btn btn-outline-dark nav-button" type="submit">Button 1</button>
+        <button class="btn btn-outline-dark nav-button" type="submit">Button 2</button>
+      </form>
+    </nav>
+    <div class="container login-form text-center col-md-6">
+      <form id="login-form">
+        <div class="form-group ">
+          <br />
+          <span class="border-bottom"
+            ><input
+              type="email"
+              name="email"
+              class="form-control text-center login-field"
+              id="user-field"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+          /></span>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            name="password"
+            class="form-control text-center login-field"
+            id="password-field"
+            placeholder="Enter password"
+          />
+        </div>
+        <div style="color: red" id="invalidBox"></div>
+        <a href="#" data-toggle="modal" data-target="#pw-reset1">
+            Forgot your password?
+          </a>
+        <div class="form-check text-center"></div>
+        <button class="btn btn-dark" type="submit" id="loginBtn" name="loginbtn" onclick="loginCall()">Log In</button>
+        <p style="color: white">
+          Not a current user? <br> <a style="color: white" href="signup.html">Click here to create account</a>
+        </p>
+      </form>
+    </div>
+    <div class="side-panel">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tristique quis massa nec
+        vestibulum. Quisque eget augue eros. Fusce et tellus gravida, molestie tortor at, egestas
+        lectus. Morbi mauris risus, tincidunt sed auctor dictum, ullamcorper et odio. Vestibulum
+        porta purus eget cursus commodo. Donec ut commodo lacus. Sed porttitor turpis nisl, at
+        semper ex varius quis. In ac diam neque. In efficitur erat eu elementum molestie. Duis
+        aliquam diam at eros ultricies, non fringilla felis pulvinar.
+      </p><br>
+
+    </div>
+
+    <!-------------------------PASSWORD RESET MODAL----------------------------->
+    <!-- User Verification Modal -->
+    <div
+      class="modal fade"
+      id="pw-reset1"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog pwresetModal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm User Security Check</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <label for="reset-email">Email address</label>
+              <div class="form-group">
+                <div class="row">
+                <input
+                  type="email"
+                  class="form-control col-10"
+                  id="reset-email"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
+                />
+                <i class="material-icons" id="reset-check"><a href="#">send</a></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <p>Answer your security question...</p>
+                <p id="sQuestion">What was the name of your third grade teacher?</p>
+                <input type="text" class="form-control" id="questionAnswer" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-target="#pw-reset1">Close</button>
+            <button type="button" class="btn btn-primary" id="switch-modals">Reset Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-----PW reset Modal------>
+    <div
+      class="modal fade"
+      id="pw-reset2"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirmed! Please reset your password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <label for="reset-password">Enter new password</label>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="reset-password"
+                  aria-describedby="emailHelp"
+                  placeholder="New Password"
+                />
+              </div>
+              <div class="form-group">
+                <p>Retype password to confirm</p>
+                <input type="text" class="form-control" id="passConfirm" placeholder="Confirm new password"/>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Reset Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--------------------------------------------------------------------------->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js
+    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js
+    "></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/validation.js"></script>
+  </body>
+</html>
