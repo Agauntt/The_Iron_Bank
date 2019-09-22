@@ -14,13 +14,14 @@ public class UserDetails extends User {
 	private int zip;
 	private Date dob;
 	private String ssn;
+	private String sq;
 	
 	public UserDetails() {
 		// Blank constructor
 	}
 	
 	public UserDetails(Long acctId, String userName, String passWord, int pin, String firstName, String lastName, String contact, String email, String address, String city,
-			String state, int zip, Date dob, String ssn) {
+			String state, int zip, Date dob, String ssn, String sq) {
 		super(acctId, userName, passWord, pin);
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -32,10 +33,11 @@ public class UserDetails extends User {
 		this.zip = zip;
 		this.dob = dob;
 		this.ssn = ssn;
+		this.sq = sq;
 	}
 
 	public UserDetails(String firstName, String lastName, String contact, String email, String address,
-			String city, String state, int zip, Date dob, String ssn) {
+			String city, String state, int zip, Date dob, String ssn, String sq) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -47,6 +49,7 @@ public class UserDetails extends User {
 		this.zip = zip;
 		this.dob = dob;
 		this.ssn = ssn;
+		this.sq = sq;
 	}
 
 	public String getFirstName() {
@@ -128,13 +131,20 @@ public class UserDetails extends User {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-
 	
+	public String getSq() {
+		return sq;
+	}
+
+	public void setSq(String sq) {
+		this.sq = sq;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDetails [firstName=" + firstName + ", lastName=" + lastName + ", contact=" + contact + ", email="
 				+ email + ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", dob="
-				+ dob + ", ssn=" + ssn + "]";
+				+ dob + ", ssn=" + ssn + ", security question=" + sq + "]";
 	}
 	
 	public String toStringDetails() {
@@ -142,5 +152,4 @@ public class UserDetails extends User {
 				+ email + "\nAddress = " + address + "\nCity = " + city + "\nState = " + state + "\nZIP = " + zip + "\nDate of birth = "
 				+ dob + "\nSSN = " + ssn;
 	}
-	
 }

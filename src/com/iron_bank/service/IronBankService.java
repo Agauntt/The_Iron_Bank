@@ -14,6 +14,6 @@ public interface IronBankService {
 	public Account createChecking(Account account) throws BusinessException;
 	public Account getAccountById(long acctId) throws BusinessException;
 	public boolean checkEmail(UserDetails uDetails) throws BusinessException;
-	UserDetails displayDetails(long acctId) throws BusinessException;
-	
+	public UserDetails displayDetails(long acctId) throws BusinessException;
+	public boolean resetPassword(UserDetails uDetails) throws BusinessException;
 }

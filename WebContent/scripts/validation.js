@@ -61,3 +61,29 @@ $("#signup-form").validate({
       }
   });
 
+$("#securityStuff").validate({
+    rules: {
+        password: {
+            required: true,
+            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$/
+        },
+        passConfirm: {
+            required: true,
+            equalTo: password
+        },
+        pin: {
+            required: true,
+            pattern: /^[0-9]{4}$/
+        },
+        sqanswer: {
+            required: true,
+            pattern: /^[a-z]{1,20}$/
+        } 
+    },
+    messages: {
+        passsword: "Invalid format",
+        passConfirm: "Passwords do not match",
+        pin: "Invalid PIN",
+        sqanswer: "Answer must be only characters, limit answer to 20 characters"
+    }
+})

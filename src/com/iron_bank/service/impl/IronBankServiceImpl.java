@@ -1,5 +1,7 @@
 package com.iron_bank.service.impl;
 
+import java.security.MessageDigest;
+
 //import java.security.MessageDigest;
 
 import com.iron_bank.dao.AccountDAO;
@@ -17,26 +19,21 @@ public class IronBankServiceImpl implements IronBankService {
 	private AccountDAO acctDAO;
 	private UserDAO uDAO;
 
-//	@Override
-//	public String hashBrowns(String password) {
-//		return password;
-//			
-//			StringBuffer message=new StringBuffer();
-//			
-//			try {
-//				MessageDigest md = MessageDigest.getInstance("SHA-256");
-//				byte[] hash = md.digest(password.getBytes("UTF-8"));
-//
-//				for (byte w : hash) {
-//					message.append(String.format("%02x", w));
-//				}
-//				
-//			}catch (Exception e) {
-//				System.out.println(e);
-//			}
-//
-//		return message.toString();
-//	}
+	@Override
+	public String hashBrowns(String password) {
+			StringBuffer message=new StringBuffer();
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-256");
+				byte[] hash = md.digest(password.getBytes("UTF-8"));
+
+				for (byte w : hash) {
+					message.append(String.format("%02x", w));
+				}
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+		return message.toString();
+	}
 
 	@Override
 	public User login(User user) throws BusinessException {
@@ -56,6 +53,7 @@ public class IronBankServiceImpl implements IronBankService {
 	@Override
 	public UserDetails signUp(UserDetails uDetails) {
 		UserDaoImpl dao = new UserDaoImpl();
+		uDetails.setPassWord(hashBrowns(uDetails.getPassWord()));
 		try {
 			dao.registerDetails(uDetails);
 		} catch (BusinessException e) {
@@ -111,9 +109,13 @@ public class IronBankServiceImpl implements IronBankService {
 	}
 
 	@Override
-	public String hashBrowns(String password) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean resetPassword(UserDetails uDetails) throws BusinessException {
+		boolean b = false;
+		UserDaoImpl dao = new UserDaoImpl();
+		if(dao.resetPassword(uDetails)) {
+			b = true;
+		}
+		return b;
 	}
 	
 }

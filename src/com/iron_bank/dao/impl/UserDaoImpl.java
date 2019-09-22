@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDAO{
 	@Override
 	public UserDetails registerDetails(UserDetails uDetails) throws BusinessException {
 		try (Connection connection = OracleConnection.getConnection()){
-			String sql = "{call register_User(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+			String sql = "{call register_User(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 			CallableStatement callableStatement = connection.prepareCall(sql);
 			callableStatement.setString(2, uDetails.getUserName());
 			callableStatement.setString(3, uDetails.getPassWord());
@@ -35,6 +35,7 @@ public class UserDaoImpl implements UserDAO{
 			callableStatement.setInt(12,  uDetails.getZip());
 			callableStatement.setDate(13, new java.sql.Date(uDetails.getDob().getTime()));
 			callableStatement.setString(14, uDetails.getSsn());
+			callableStatement.setString(15, uDetails.getSq());
 			callableStatement.registerOutParameter(1, java.sql.Types.NUMERIC);
 			
 			callableStatement.execute();
@@ -119,6 +120,32 @@ public class UserDaoImpl implements UserDAO{
 			throw new BusinessException("Internal error occured...Please try again later");
 		}
 		return uDetails;
+	}
+
+	@Override
+	public boolean resetPassword(UserDetails uDetails) throws BusinessException {
+		boolean b = false;
+		System.out.println(uDetails);
+		try(Connection connection = OracleConnection.getConnection()) {
+			String sql = "Select *  FROM user_info where email = ? and sq = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, uDetails.getEmail());
+			preparedStatement.setString(2, uDetails.getSq());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				System.out.println("User found");
+				sql = "UPDATE users SET password = ? WHERE username = ? ";
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, uDetails.getPassWord());
+				preparedStatement.setString(2, uDetails.getEmail());
+				int update = preparedStatement.executeUpdate();
+				System.out.println(update);
+				} 
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+				throw new BusinessException("Internal error occured...Please try again later");
+			}
+		return b;
 	}
 
 }

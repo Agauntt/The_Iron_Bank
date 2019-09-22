@@ -127,7 +127,7 @@
               <label for="ssn_id" class="control-label">Social Security Number</label>
               <input required type="text" class="form-control" id="ssn_id" name="ssn" placeholder="###-##-####">
             </div>
-            <button id="continue_submit" class="btn btn-dark" data-toggle="modal" data-target="#set-security">Continue</button>			
+            <button id="continue_submit" class="btn btn-dark">Continue</button>			
           </form>
         </div> 
       </div>
@@ -151,39 +151,40 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="securityStuff">
               <label for="reset-password">Enter a Password (Password must be between 6 - 12 characters, and must contain at least one number, one lowercase letter and one Uppercase letter</label>
             <div class="form-group">
               <input
                 type="password"
+                name="password"
                 class="form-control"
-                id="reset-password"
-                aria-describedby="emailHelp"
-                placeholder="New Password"
+                id="password"
+                placeholder="Password"
               />
             </div>
             <div class="form-group">
               <p>Retype password to confirm</p>
-              <input type="text" class="form-control" id="passConfirm" placeholder="Confirm new password"/>
+              <input type="password" class="form-control" name="passConfirm" id="passConfirm" placeholder="Confirm password"/>
             </div>
             <div class="form-group">
               <p>Enter a four digit PIN</p>
-              <input type="text" class="form-control" id="pin" placeholder="PIN"/>
+              <input type="text" class="form-control" name="pin" id="pin" placeholder="PIN"/>
             </div>
             <div class="form-group">
               <p>Select a security question and enter your answer</p> 
-              <select required class="form-control text-center" id="state_id">
+              <select required class="form-control text-center" id="sq_id">
                 <option value="SQ1">In what city were you born?</option>
                 <option value="SQ2">What is your mother's maiden name?</option>
                 <option value="SQ3">What is your favorite sport?</option>
-              <input type="text" class="form-control" id="sq-answer" placeholder="Answer"/>
+                </select><br>
+              <input type="text" class="form-control" name="sqanswer" id="sqanswer" placeholder="Answer"/>
             </div>
             
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Reset Password</button>
+          <button type="submit" class="btn btn-primary" onclick="signupUser()">Finalize Account</button>
         </div>
       </div>
     </div>

@@ -108,8 +108,12 @@
               </div>
               <div class="form-group">
                 <p>Answer your security question...</p>
-                <p id="sQuestion">What was the name of your third grade teacher?</p>
-                <input type="text" class="form-control" id="questionAnswer" />
+                <select required class="form-control text-center" id="sq_id">
+                  <option value="SQ1">In what city were you born?</option>
+                  <option value="SQ2">What is your mother's maiden name?</option>
+                  <option value="SQ3">What is your favorite sport?</option>
+                  </select>
+                  <input type="text" class="form-control" id="questionAnswer" />
               </div>
             </form>
           </div>
@@ -157,7 +161,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Reset Password</button>
+            <button type="button" class="btn btn-primary" onclick="resetPW()">Reset Password</button>
           </div>
         </div>
       </div>
