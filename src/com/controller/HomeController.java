@@ -35,20 +35,6 @@ public class HomeController extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		Gson gson = new Gson();
-//		User user = (User) request.getAttribute("User");
-//		request.setAttribute("User", user);
-//			ServletOutputStream jout = response.getOutputStream();
-//			response.setContentType("application/json;charset=UTF-8");
-//			String juser = gson.toJson(user);
-//			jout.print(juser);
-//			doGet(request, response);
-//	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,14 +82,14 @@ public class HomeController extends HttpServlet {
 			UserDetails udetails = service.displayDetails(user.getAcctId());
 //			System.out.println(udetails);
 			String juser = gson.toJson(udetails);
-			System.out.println("Printing juser...");
-			System.out.println(juser);
+//			System.out.println("Printing juser...");
+//			System.out.println(juser);
 			jout.print(juser);
+//			jout.print("addition info");
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 
 	/**

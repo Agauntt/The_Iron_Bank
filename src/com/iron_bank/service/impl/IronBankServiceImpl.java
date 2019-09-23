@@ -1,6 +1,8 @@
 package com.iron_bank.service.impl;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 //import java.security.MessageDigest;
 
@@ -40,6 +42,7 @@ public class IronBankServiceImpl implements IronBankService {
 		try {
 			UserDaoImpl dao = new UserDaoImpl();
 			System.out.println("service layer: "+user);
+			user.setPassWord(hashBrowns(user.getPassWord()));
 			user = dao.authUser(user);
 			if(user.getAcctId()!=0) {
 				return user;
@@ -65,8 +68,10 @@ public class IronBankServiceImpl implements IronBankService {
 
 	@Override
 	public Account createChecking(Account account) throws BusinessException {
-		
-		return null;
+		System.out.println("createChecking obj: " + account);
+		AccountDaoImpl dao = new AccountDaoImpl();
+		account = dao.registerAccount(account);
+		return account;
 	}
 
 	@Override
@@ -79,8 +84,8 @@ public class IronBankServiceImpl implements IronBankService {
 
 	@Override
 	public Account getAccountById(long acctId) throws BusinessException {
-		//
-		return null;
+		Account acct = getAccountDao().findAccountById(acctId);
+		return acct;
 	}
 	
 	public AccountDAO getAccountDao() {
@@ -112,10 +117,26 @@ public class IronBankServiceImpl implements IronBankService {
 	public boolean resetPassword(UserDetails uDetails) throws BusinessException {
 		boolean b = false;
 		UserDaoImpl dao = new UserDaoImpl();
+		uDetails.setPassWord(hashBrowns(uDetails.getPassWord()));
 		if(dao.resetPassword(uDetails)) {
 			b = true;
 		}
 		return b;
+	}
+
+	@Override
+	public List<Account> displayAccounts(long acctId) throws BusinessException {
+		AccountDaoImpl dao = new AccountDaoImpl();
+		List<Account> accountList = new ArrayList<>();
+		accountList = dao.displayAccounts(acctId);
+		return accountList;
+	}
+
+	@Override
+	public Account makeTransaction(long acctId, long ownerId, double trans) throws BusinessException {
+		Account acct = new Account();
+		acct = getAccountDao().makeTransaction(acctId, ownerId, trans);
+		return acct;
 	}
 	
 }

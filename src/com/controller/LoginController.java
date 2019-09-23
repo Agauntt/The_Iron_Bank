@@ -42,14 +42,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int code = 0;
-        String message = "";
 
-        code = 200;
-        message = "Success";
-
-        response.setContentType("application/json");
-        response.getWriter().write(message);
 	}
 
 	/**

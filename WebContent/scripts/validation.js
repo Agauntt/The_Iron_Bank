@@ -86,4 +86,21 @@ $("#securityStuff").validate({
         pin: "Invalid PIN",
         sqanswer: "Answer must be only characters, limit answer to 20 characters"
     }
+});
+
+$("#resetpw").validate({
+    rules: {
+        resetPassword: {
+            required: true,
+            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$/
+        },
+        confirmPassword: {
+            required: true,
+            equalTo: resetPassword
+        }
+    }, 
+    messages: {
+        resetPassword: "Password must be between 6 - 12 characters, and contain at least 1 number, lowercase letter, and one uppercase letter",
+        confirmPassword: "Passwords do not match"
+    }
 })

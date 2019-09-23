@@ -13,22 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.iron_bank.exceptions.BusinessException;
+import com.iron_bank.model.Account;
+import com.iron_bank.model.Transaction;
 import com.iron_bank.model.User;
-import com.iron_bank.model.UserDetails;
 import com.iron_bank.service.IronBankService;
-import com.iron_bank.service.impl.*;
+import com.iron_bank.service.impl.IronBankServiceImpl;
 
 /**
- * Servlet implementation class SignupController
+ * Servlet implementation class TransactionController
  */
-@WebServlet("/signup")
-public class SignupController extends HttpServlet {
+@WebServlet("/transaction")
+public class TransactionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignupController() {
+    public TransactionController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,34 +46,29 @@ public class SignupController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Hello from Signup doPost");
+		System.out.println("Transaction doPost");
 		IronBankService service = new IronBankServiceImpl();
 		Gson gson = new Gson();
-		ServletOutputStream jout = response.getOutputStream();
+		ServletOutputStream out = response.getOutputStream();
 		response.setContentType("application/json;charset=UTF-8");
-		System.out.println("raw request");
-		System.out.println(request);
+		User user = (User) request.getSession().getAttribute("User");
 		String requestData = request.getReader().lines().collect(Collectors.joining());
-		System.out.println("parsed request");
+		System.out.println("Raw request");
 		System.out.println(requestData);
-		UserDetails userDetails = gson.fromJson(requestData, UserDetails.class);
-		User user =  gson.fromJson(requestData, User.class);
-		userDetails.setUserName(user.getUserName());
-		userDetails.setPassWord(user.getPassWord());
-		userDetails.setPin(user.getPin());
+		Account acct = gson.fromJson(requestData, Account.class);
+		Transaction t = gson.fromJson(requestData, Transaction.class);
 		RequestDispatcher rd = null;
+		System.out.println(acct);
+		System.out.println(t);
 		try {
-			service.signUp(userDetails);
-			user.setAcctId(userDetails.getAcctId());
-			request.getSession().setAttribute("User", user);
-			rd = request.getRequestDispatcher("home");
-//			String juser = gson.toJson(userDetails);
-//			jout.print(juser);
-			rd.forward(request, response);
+			acct = service.getAccountById(acct.getAcctId());
+			double b = acct.getBalance() + t.getAmount();
+			acct.setBalance(b);
+			service.makeTransaction(acct.getAcctId(), user.getAcctId(), acct.getBalance());
+			out.print(acct.toString());
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

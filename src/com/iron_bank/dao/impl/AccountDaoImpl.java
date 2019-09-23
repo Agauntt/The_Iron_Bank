@@ -20,6 +20,7 @@ public class AccountDaoImpl  implements AccountDAO{
 
 	@Override
 	public Account registerAccount(Account account) throws BusinessException {
+		System.out.println("DAO: " + account);
 		try (Connection connection = OracleConnection.getConnection()){
 			String sql = "{call create_acct(?,?,?,?,?,?)}";
 			CallableStatement callableStatement = connection.prepareCall(sql);
@@ -29,7 +30,6 @@ public class AccountDaoImpl  implements AccountDAO{
 			callableStatement.setDouble(5, account.getInterest());
 			callableStatement.setLong(6, account.getOwnerId());
 			callableStatement.registerOutParameter(1, java.sql.Types.NUMERIC);
-		
 			callableStatement.execute();
 				account.setAcctId(callableStatement.getLong(1));
 		} catch (Exception e) {
@@ -88,13 +88,25 @@ public class AccountDaoImpl  implements AccountDAO{
 
 	@Override
 	public Account findAccountById(long id) throws BusinessException {
+		Account acct = new Account();
 		try(Connection connection = OracleConnection.getConnection()) {
-			String sql = "Bork";
+			String sql = "SELECT * FROM acct_table WHERE acct_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setLong(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				acct.setBalance(resultSet.getDouble("balance"));
+				acct.setAcctId(id);
+				acct.setOwnerId(resultSet.getLong("owner_id"));
+				System.out.println(acct);
+			} else {
+				System.out.println("Something went wrong, account not found");
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return acct;
 	}
 
 	@Override
