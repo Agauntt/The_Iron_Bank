@@ -148,4 +148,24 @@ public class UserDaoImpl implements UserDAO{
 		return b;
 	}
 
+	public User authAdminUser(User user) {
+		System.out.println("Admin Dao reached: " + user);
+		try(Connection connection = OracleConnection.getConnection()) {
+			String sql = "SELECT adminId FROM admins WHERE username = ? AND password = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, user.getUserName());
+			preparedStatement.setString(2, user.getPassWord());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				user.setAcctId(resultSet.getLong("adminId"));
+			} else {
+				System.out.println("User not found");
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(user);
+		return user;
+	}
+
 }

@@ -20,4 +20,5 @@ public interface IronBankService {
 	public boolean resetPassword(UserDetails uDetails) throws BusinessException;
 	public List<Account> displayAccounts(long acctId) throws BusinessException;
 	public Account makeTransaction(long acctId, long ownerId, double trans) throws BusinessException;
+	public User adminLogin(User user) throws BusinessException;
 }

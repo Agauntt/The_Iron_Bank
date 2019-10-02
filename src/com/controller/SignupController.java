@@ -50,8 +50,6 @@ public class SignupController extends HttpServlet {
 		Gson gson = new Gson();
 		ServletOutputStream jout = response.getOutputStream();
 		response.setContentType("application/json;charset=UTF-8");
-		System.out.println("raw request");
-		System.out.println(request);
 		String requestData = request.getReader().lines().collect(Collectors.joining());
 		System.out.println("parsed request");
 		System.out.println(requestData);
@@ -62,16 +60,23 @@ public class SignupController extends HttpServlet {
 		userDetails.setPin(user.getPin());
 		RequestDispatcher rd = null;
 		try {
-			service.signUp(userDetails);
-			user.setAcctId(userDetails.getAcctId());
-			request.getSession().setAttribute("User", user);
-			rd = request.getRequestDispatcher("home");
-//			String juser = gson.toJson(userDetails);
-//			jout.print(juser);
-			rd.forward(request, response);
+			if(service.signUp(userDetails) != null) {
+				user.setAcctId(userDetails.getAcctId());
+				request.getSession().setAttribute("User", user);
+				rd = request.getRequestDispatcher("home");
+//				String juser = gson.toJson(userDetails);
+//				jout.print(juser);
+				rd.forward(request, response);
+			} else {
+				System.out.println("Hello error");
+				user.setAcctId(0);
+				String juser = gson.toJson(user);
+				jout.print(juser);
+			}
+
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Hello error");
+			System.out.println(e);
 		}
 	}
 

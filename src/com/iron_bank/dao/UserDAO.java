@@ -8,6 +8,7 @@ public interface UserDAO {
 
 	public UserDetails registerDetails(UserDetails uDetails) throws BusinessException;
 	public User authUser(User user) throws BusinessException;
+	public User authAdminUser(User user) throws BusinessException;
 	public UserDetails displayDetails(long userID) throws BusinessException;
 	public boolean checkUnique(UserDetails udetails) throws BusinessException;
 	public boolean resetPassword(UserDetails uDetails) throws BusinessException;

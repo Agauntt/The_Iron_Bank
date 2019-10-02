@@ -50,13 +50,34 @@ function loginCall(){
     }
 }
 
-
-// function pageSetup(data) {
-//     console.log("Page data: "+pageData);
-//     console.log("First name: ")
-//         console.log(data.firstName);
-//         document.getElementById("nameBox").innerText = data.firstName;
-// }
+function adminloginCall(){
+    event.preventDefault();
+    var user = document.getElementById("user-field").value;
+    var pass = document.getElementById("password-field").value;
+    console.log("about to fetch")
+    if($("#login-form").valid()){
+    fetch("http://localhost:4002/project-1/loginAdmin", {
+            method: 'POST',
+            body: JSON.stringify({
+            	userName: user,
+            	passWord: pass
+            })
+        })
+        .then(res => {
+            return res.json();
+        }).then(data => {
+            pageData = data;
+            console.log(pageData);
+            if(data.acctId!=""){
+//                window.location.href = "http://localhost:4002/project-1/home.html";
+                $("#adminBody").hide();
+                document.getElementById("adminSpace").innerHTML = "<h1>Hello, Admin.</h1>"
+            } else {
+                document.getElementById("invalidBox").innerText = "Invlaid email or password"
+            }
+        })        
+    }
+}
 
 function pullUserData(){
      event.preventDefault();
@@ -128,17 +149,17 @@ function pullUserData(){
     }).then(data => {
         pageData = data;
         console.log(pageData);
-        if(data.acctId!=""){
+        if(data.acctId!=0){
             window.location.href = "http://localhost:4002/project-1/home.html";
             console.log("End of if statement")
         } else {
-            document.getElementById("invalidBox").innerText = "Invlaid email or password"
+           // document.getElementById("invalidBox").innerText = "Invlaid email or password"
+           console.log(data);
+           alert("Email account is already registered, please log in or use another account")
         }
 
     })
-    } else{
-        alert("Bugger off");
-    }
+    } 
  }
  
  function resetPW(){
@@ -218,11 +239,11 @@ function callVATM(e){
      var acctId = document.getElementById("acctId").value;
      var transType = $("input[name='trans-type']:checked"). val();
      var transAmount = document.getElementById("trans-amount").value;
-     if(transType == "withdrawal"){
-         transAmount = transAmount - (transAmount * 2);
-     }
      if (transAmount < 0){
     	 transAmount = transAmount * -1
+     }
+     if(transType == "withdrawal"){
+         transAmount = transAmount - (transAmount * 2);
      }
      console.log(acctId);
      console.log(transType);

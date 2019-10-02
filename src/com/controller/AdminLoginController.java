@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -12,57 +13,69 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.iron_bank.exceptions.BusinessException;
-import com.iron_bank.model.Account;
 import com.iron_bank.model.User;
 import com.iron_bank.service.IronBankService;
 import com.iron_bank.service.impl.IronBankServiceImpl;
 
 /**
- * Servlet implementation class CreateAccount
+ * Servlet implementation class LoginController
  */
-@WebServlet("/create")
-public class CreateAccount extends HttpServlet {
+@WebServlet("/loginAdmin")
+public class AdminLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateAccount() {
+    public AdminLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+//	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		System.out.println("Hello from service");
+//	}
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		}
+
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Hello from create post");
 		IronBankService service = new IronBankServiceImpl();
 		Gson gson = new Gson();
 		ServletOutputStream jout = response.getOutputStream();
-//		response.setContentType("application/json;charset=UTF-8");
+		response.setContentType("application/json;charset=UTF-8");
+
 		String requestData = request.getReader().lines().collect(Collectors.joining());
+		System.out.println("Raw request");
+		System.out.println(requestData);
+		User user = gson.fromJson(requestData, User.class);
 		RequestDispatcher rd = null;
-		User user = (User) request.getSession().getAttribute("User");
-		Account acct = gson.fromJson(requestData, Account.class);
-		System.out.println(user);
-		acct.setOwnerId(user.getAcctId());
-		System.out.println(acct);
 		try {
-			acct = service.createChecking(acct);
-			String jacct = gson.toJson(acct);
-			jout.print(jacct);
-		} catch (BusinessException e) {
-			System.out.println("Error");
-			System.out.print(e);
+			System.out.println(user.toString());
+			user = service.adminLogin(user);
+			System.out.println(user.toString());
+			if(user.getAcctId()!=0) {
+				System.out.println("Success: " + user);
+				request.getSession().setAttribute("Admin", user.getAcctId());
+				rd = request.getRequestDispatcher("adminHome");
+				String juser = gson.toJson(user);
+				System.out.println(juser);
+				rd.forward(request, response);
+			} else {
+				String juser = gson.toJson(user);
+				jout.print(juser);
+			}
+		} catch(Exception e){
+			System.out.println(e);
 		}
 	}
 }

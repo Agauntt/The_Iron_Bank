@@ -54,6 +54,21 @@ public class IronBankServiceImpl implements IronBankService {
 	}
 
 	@Override
+	public User adminLogin(User user) throws BusinessException {
+		try {
+			UserDaoImpl dao = new UserDaoImpl();
+			System.out.println("service layer: "+user);
+			user.setPassWord(hashBrowns(user.getPassWord()));
+			user = dao.authAdminUser(user);
+			if(user.getAcctId()!=0) {
+				return user;
+			} 
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return user;
+	}
+	@Override
 	public UserDetails signUp(UserDetails uDetails) {
 		UserDaoImpl dao = new UserDaoImpl();
 		uDetails.setPassWord(hashBrowns(uDetails.getPassWord()));
